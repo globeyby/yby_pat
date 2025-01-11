@@ -1,0 +1,25 @@
+int只能到2的32次方，4*2的30次方，4*10的9次方，这才多大，要处理10的100次方，显然用字符串是比较合适的。
+c++字符串处理，string按位变int只需减去char0即可。
+#include<iostream>
+using namespace std;
+int main(){
+    int sum=0,i,j,len,tmp;
+    string s,str_sum,str_out[10]={"ling","yi","er","san","si","wu","liu","qi","ba","jiu"};
+    cin>>s;
+    len=s.size();
+    for(i=0;i<len;i++){
+        sum+=s[i]-'0';
+    }
+    str_sum=to_string(sum);
+    len=str_sum.size();
+    for(i=0;i<len;i++){
+        tmp=str_sum[i]-'0';
+        for(j=0;j<10;j++){
+            if(tmp==j)
+                cout<<str_out[j];
+        }
+        if(i!=len-1)
+            cout<<" ";
+    }
+    return 0;
+}
