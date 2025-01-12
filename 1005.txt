@@ -1,0 +1,2 @@
+（3n+1）plus，显然要维护一个唯一列表，为此可以使用c++ set库，唯一且升序。
+用find查找，insert插入，erase删除，ologn的事。
