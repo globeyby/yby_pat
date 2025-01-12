@@ -1,0 +1,55 @@
+本关考验你阅读理解与不满足条件立刻退出，感觉我的做法漏洞很大，但样例全过了，就姑且这样吧。
+#include<iostream>
+using namespace std;
+int stringCheck(string s){
+    int len=s.size();
+    int before=0,mid=0,after=0,i=0;
+    while(i!=len){
+        if(s[i]=='P'||s[i]=='A'||s[i]=='T'){
+            while(s[i]=='A'){
+                before++;
+                i++;
+            }
+            if(s[i]=='P'){
+                i++;
+                while(s[i]=='A'){
+                    mid++;
+                    i++;
+                }
+                if(s[i]=='T'){
+                    i++;
+                    while(s[i]=='A'){
+                        after++;
+                        i++;
+                    }
+                    if(i!=len)
+                        return 0;
+                    else if(before*mid==after&&mid)
+                        return 1;
+                    else return 0;
+                }
+                else return 0;
+            }
+            else return 0;
+        }
+        else return 0;
+    }
+    return 0;
+}
+int main(){
+    int n;
+    cin>>n;
+    string strs;
+    int res[n];
+    for(int i=0;i<n;i++){
+        cin>>strs;
+        res[i]=stringCheck(strs);
+    }
+    for(int i=0;i<n;i++){
+        if(res[i]==1)
+            cout<<"YES"<<endl;
+        else
+            cout<<"NO"<<endl;
+    }
+    return 0;
+}
