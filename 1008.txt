@@ -1,0 +1,40 @@
+循环右移所需的交换，反转，甚至整体，都在algorithm头文件里有，想必在基础c++入门以外的情景不会考查。
+algorithm里的reverse传指针，很难用，还是用自制吧。
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+void reverse(vector<int>& t,int start,int end){
+    while(start<end){
+        swap(t[start],t[end]);
+        start++;
+        end--;
+    }
+}
+int main(){
+    int m,n;
+    cin>>m>>n;
+    n%=m;
+    vector<int> nums(m);
+    for(int i=0;i<m;i++){
+        cin>>nums[i];
+    }
+    if(n==0){
+        for(int i=0;i<m;i++){
+            cout<<nums[i];
+            if(i!=m-1)
+                cout<<" ";
+        }
+    }else{
+        reverse(nums,0,m-1);
+        reverse(nums,0,n-1);
+        reverse(nums,n,m-1);
+        for(int i=0;i<m;i++){
+            cout<<nums[i];
+            if(i!=m-1)
+                cout<<" ";
+        }
+    }
+    //cout<<endl;
+    return 0;
+}
