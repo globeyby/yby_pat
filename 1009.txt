@@ -1,0 +1,24 @@
+如果不用getline读入句子的话，字符串会在空格处断开，然后将该字符串传化为流，然后进行分词处理，插入string容器中，最后对string容器反向输出，注意题目的空格要求。
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<vector>
+using namespace std;
+
+int main(){
+    string sentence;
+    getline(cin,sentence);
+    stringstream ss(sentence);
+    vector<string> words;
+    string word;
+    while(ss>>word) {
+        words.push_back(word);
+    }
+    for(int i=words.size()-1;i>=0;i--){
+        cout<<words[i];
+        if(i!=0)
+            cout<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
