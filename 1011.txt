@@ -1,0 +1,15 @@
+int覆盖不到2的31次方，long至少4B，但long long至少8B，能覆盖。
+bool 1B，取值为true、false，但存储为0、1。
+#include<iostream>
+using namespace std;
+int main(){
+    int T;
+    cin>>T;
+    for(int i=0;i<T;i++){
+        long long A,B,C;
+        cin>>A>>B>>C;
+        bool res=(A+B>C);
+        cout<<"Case #"<<i+1<<": "<<(res?"true":"false")<<endl;
+    }
+    return 0;
+}
