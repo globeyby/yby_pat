@@ -1,0 +1,69 @@
+题目本身很简单，附近的几道题都用到了sstreeam，stringstream自带字符串转int，非常智能。
+注意可能存在条件误判的陷阱，如本题的A2，虽然进行了操作，但结果加起来为0。
+用iomanip库的fixed，setpricision（1）来保证精确到1位小数输出。
+#include<iostream>
+#include<sstream>
+#include<vector>
+#include<iomanip>
+using namespace std;
+int main(){
+    string sentence;
+    getline(cin,sentence);
+    stringstream ss(sentence);
+    vector<int> nums;
+    int num;
+    while(ss>>num){
+        nums.push_back(num);
+    }
+    int n=nums.size();
+    int A1=0,A2=0,A3=0,A4count=0,A5=0;
+    bool A2flag=true;
+    int A2if=0;
+    double A4=0.0;
+    for(int i=1;i<n;i++){
+        if(nums[i]%5==0&&nums[i]%2==0)
+            A1+=nums[i];
+        else if(nums[i]%5==1){
+            if(A2flag){
+                A2+=nums[i];
+                A2flag=false;
+                A2if++;
+            }else{
+                A2-=nums[i];
+                A2flag=true;
+                A2if++;
+            }
+        }else if(nums[i]%5==2)
+            A3++;
+        else if(nums[i]%5==3){
+            A4+=nums[i];
+            A4count++;
+        }else if(nums[i]%5==4){
+            if(nums[i]>A5)
+                A5=nums[i];
+        }
+    }
+    if(A1!=0)
+        cout<<A1<<" ";
+    else
+        cout<<"N ";
+    if(A2!=0||A2if!=0)
+        cout<<A2<<" ";
+    else
+        cout<<"N ";
+    if(A3!=0)
+        cout<<A3<<" ";
+    else
+        cout<<"N ";
+    if(A4count==0)
+        cout<<"N ";
+    else{
+        A4=A4/A4count;
+        cout<<fixed<<setprecision(1)<<A4<<" ";
+    }
+    if(A5!=0)
+        cout<<A5;
+    else
+        cout<<"N";
+    return 0;
+}
