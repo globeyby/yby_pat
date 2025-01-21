@@ -1,0 +1,21 @@
+一行用空格间隔的输入，c++可做到从输入流按序存放，而string类型也可用char迭代器对每个字符访问。
+#include<iostream>
+using namespace std;
+int main(){
+    string A,B;
+    int Da,Db;
+    cin>>A>>Da>>B>>Db;
+    int Pa=0,Pb=0;
+    for(char c:A){
+        if(c-'0'==Da){
+            Pa=Pa*10+Da;
+        }
+    }
+    for(char c:B){
+        if(c-'0'==Db){
+            Pb=Pb*10+Db;
+        }
+    }
+    cout<<Pa+Pb<<endl;
+    return 0;
+}
