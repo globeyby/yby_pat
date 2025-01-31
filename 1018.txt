@@ -1,0 +1,39 @@
+unordered_map还是很方便。
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int winA=0,drawA=0,loseA=0;
+    unordered_map<char,int> winGestureA;
+    unordered_map<char,int> winGestureB;
+    char a,b;
+    for(int i=0;i<n;i++){
+        cin>>a>>b;
+        if(a=='C'&&b=='J'||a=='J'&&b=='B'||a=='B'&&b=='C'){
+            winA++;
+            winGestureA[a]++;
+        }else if(a==b)
+            drawA++;
+        else{
+            loseA++;
+            winGestureB[b]++;
+        }
+    }
+    int winB=loseA;
+    int loseB=winA;
+    char maxGestureA='B',maxGestureB='B';
+    if(winGestureB['C']>winGestureB[maxGestureB])
+        maxGestureB='C';
+    if(winGestureB['J']>winGestureB[maxGestureB])
+        maxGestureB='J';
+    if(winGestureA['C']>winGestureA[maxGestureA])
+        maxGestureA='C';
+    if(winGestureA['J']>winGestureA[maxGestureA])
+        maxGestureA='J';
+    cout<<winA<<" "<<drawA<<" "<<loseA<<endl;
+    cout<<winB<<" "<<drawA<<" "<<loseB<<endl;
+    cout<<maxGestureA<<" "<<maxGestureB<<endl;
+    return 0;
+}
