@@ -1,0 +1,49 @@
+sort默认按小于号排，也就是越来越大，升序，给出greater<int>()参数以实现降序。
+setw(数字)，设置输出项的最小宽度，小于最小宽度就用setfill(字符)里的字符填充，大于最小宽度就无事发生。
+把数读进来，按位装进int容器里，单独排序，以备不时之需。
+#include<iostream>
+#include<iomanip>
+#include<algorithm>
+#include<vector>
+using namespace std;
+vector<int> intToChars(int num){
+    vector<int> res(4,0);
+    for(int i=3;i>=0;i--){
+        res[i]=num%10;
+        num/=10;
+    }
+    return res;
+}
+int charsToInt(const vector<int>& res){
+    int num=0;
+    for(int c:res)
+        num=num*10+c;
+    return num;
+}
+int DescSort(const vector<int>& res){
+    vector<int> tmp=res;
+    sort(tmp.begin(),tmp.end(),greater<int>());
+    return charsToInt(tmp);
+}
+int AscSort(const vector<int>& res){
+    vector<int> tmp=res;
+    sort(tmp.begin(),tmp.end());
+    return charsToInt(tmp);
+}
+int main(){
+    int n;
+    cin>>n;
+    while(1){
+        vector<int> chars=intToChars(n);
+        int desc=DescSort(chars);
+        int asc=AscSort(chars);
+        int diff=desc-asc;
+        cout<<setfill('0')<<setw(4)<<desc<<" - "
+            <<setfill('0')<<setw(4)<<asc<<" = "
+            <<setfill('0')<<setw(4)<<diff<<endl;
+        if(diff==6174||diff==0)
+            break;
+        n=diff;
+    }
+    return 0;
+}
