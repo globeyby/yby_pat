@@ -1,0 +1,20 @@
+引入iomanip库来保证输出格式，将打点数转化为秒数的时候注意四舍五入，用加一半再÷的方法确实很适合四舍五入。
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main(){
+    int c1,c2;
+    cin>>c1>>c2;
+    int diff=c2-c1;
+    int seconds=(diff+50)/100;
+    int hh,mm,ss;
+    hh=seconds/3600;
+    seconds%=3600;
+    mm=seconds/60;
+    seconds%=60;
+    ss=seconds;
+    cout<<setfill('0')<<setw(2)<<hh<<":"
+        <<setfill('0')<<setw(2)<<mm<<":"
+        <<setfill('0')<<setw(2)<<ss;
+    return 0;
+}
