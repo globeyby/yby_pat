@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+struct Date{
+    int year;
+    int month;
+    int day;
+};
+bool isEarlier(const Date& d1,const Date& d2){
+    if(d1.year<d2.year)
+        return true;
+    else if(d1.year>d2.year)
+        return false;
+    if(d1.month<d2.month)
+        return true;
+    else if(d1.month>d2.month)
+        return false;
+    return d1.day<d2.day;
+}
+bool isValid(const Date& d){
+    Date oldest={1814,9,6};
+    Date newest={2014,9,6};
+    return !isEarlier(d,oldest)&&!isEarlier(newest,d);
+}
+int main(){
+    int n;
+    cin>>n;
+    int count=0;
+    string oldName,newName;
+    Date older={2014,9,6};
+    Date newer={1814,9,6};
+    for(int i=0;i<n;i++){
+        string name;
+        Date birth;
+        char tmp;
+        cin>>name>>birth.year>>tmp>>birth.month>>tmp>>birth.day;
+        if(isValid(birth)){
+            count++;
+            if(isEarlier(birth,older)){
+                oldName=name;
+                older=birth;
+            }
+            if(isEarlier(newer,birth)){
+                newName=name;
+                newer=birth;
+            }
+        }
+    }
+    cout<<count;
+    if(count>0)
+        cout<<" "<<oldName<<" "<<newName;
+    return 0;
+}
