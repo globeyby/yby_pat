@@ -1,1 +1,23 @@
-string中 ，用npos表示操作失败或未找到指定内容时的情况。
+string中 ，用npos表示操作失败或未找到指定内容时的情况，npos是string类的一个静态成员常量，使用时需指定类名string::npos。
+理论上用命名空间std后就能用npos，但不是所有编译器都能识别。
+cctype库提供toupper方法，输入是小写字母则转大写，不是则返回自身。
+#include<iostream>
+#include<unordered_set>
+#include<cctype>
+#include<string>
+using namespace std;
+int main(){
+    string wanted,gived;
+    cin>>wanted>>gived;
+    unordered_set<char> goodKeys;
+    string res;
+    for(char c:gived)
+        goodKeys.insert(toupper(c));
+    for(char c:wanted){
+        c=toupper(c);
+        if(goodKeys.find(c)==goodKeys.end()&&res.find(c)==string::npos)
+            res+=c;
+    }
+    cout<<res;
+    return 0;
+} 
