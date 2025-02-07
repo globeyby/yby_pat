@@ -1,0 +1,25 @@
+弄懂题意，注意数的范围，10的9次方的运算可能超出int所能表示的范围，所以用long long。
+int最大到10的9次方多点，long long最大到10的18次方多点。
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int main(){
+    int n;
+    long long p;
+    cin>>n>>p;
+    vector<long long> nums(n);
+    for(int i=0;i<n;i++)
+        cin>>nums[i];
+    sort(nums.begin(),nums.end());
+    int maxlen=0;
+    int left=0,right=0;
+    while(right<n)
+        if(nums[right]<=nums[left]*p){
+            maxlen=max(maxlen,right-left+1);
+            right++;
+        }else
+            left++;
+    cout<<maxlen;
+    return 0;
+}
