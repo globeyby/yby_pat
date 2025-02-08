@@ -1,0 +1,37 @@
+用cctype库里的isdigit判定输入的字符串里是否有非数字字符。
+#include<iostream>
+#include<cctype>
+#include<vector>
+using namespace std;
+const vector<int> weights={7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
+const string checkCodes="10X98765432";
+bool isValid(const string& id){
+    if(id.length()!=18)
+        return false;
+    int sum=0;
+    for(int i=0;i<17;i++){
+        if(!isdigit(id[i]))
+            return false;
+        sum+=(id[i]-'0')*weights[i];
+    }
+    int z=sum%11;
+    char res=checkCodes[z];
+    return res==id[17];
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<string> idNumbers;
+    for(int i=0;i<n;i++){
+        string id;
+        cin>>id;
+        if(!isValid(id))
+            idNumbers.push_back(id);
+    }
+    if(idNumbers.empty())
+        cout<<"All passed";
+    else
+        for(string id:idNumbers)
+            cout<<id<<endl;
+    return 0;
+}
