@@ -1,0 +1,19 @@
+是一道需要点想象力的数学题。
+#include<iostream>
+using namespace std;
+const int Mod=1000000007;
+int main(){
+    string pats;
+    cin>>pats;
+    int PNum=0,PANum=0,PATnum=0;
+    for(char c:pats){
+        if(c=='P')
+            PNum++;
+        else if(c=='A')
+            PANum=(PNum+PANum)%Mod;
+        else if(c=='T')
+            PATnum=(PANum+PATnum)%Mod;
+    }
+    cout<<PATnum;
+    return 0;
+}
