@@ -1,0 +1,27 @@
+unordered_map创建的关联容器，在通过key访问一个不存在的键时，会自动把值初始化为该类型的默认构造值，对int来说，就是0。
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,int> scoresNum;
+    for(int i=0;i<n;i++){
+        int tmp;
+        cin>>tmp;
+        scoresNum[tmp]++;
+    }
+    int k;
+    cin>>k;
+    for(int i=0;i<k;i++){
+        int queryNum;
+        cin>>queryNum;
+        if(i>0)
+            cout<<" ";
+        if(scoresNum.find(queryNum)!=scoresNum.end())
+            cout<<scoresNum[queryNum];
+        else
+            cout<<0;
+    }
+    return 0;
+}
