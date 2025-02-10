@@ -1,0 +1,25 @@
+用两个无序唯一键值对建立机试座位号到准考证号和考试座位号的映射，在查询时输出对应内容即可。
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,string> admissionNumber;
+    unordered_map<int,int> seatNumber;
+    for(int i=0;i<n;i++){
+        string tmpNumber;
+        int testSeat,examSeat;
+        cin>>tmpNumber>>testSeat>>examSeat;
+        admissionNumber[testSeat]=tmpNumber;
+        seatNumber[testSeat]=examSeat;
+    }
+    int m;
+    cin>>m;
+    for(int i=0;i<m;i++){
+        int queryNum;
+        cin>>queryNum;
+        cout<<admissionNumber[queryNum]<<" "<<seatNumber[queryNum]<<endl;
+    }
+    return 0;
+}
