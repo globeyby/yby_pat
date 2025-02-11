@@ -1,0 +1,26 @@
+size_t类型是一种无符号整数类型，用于表示对象的大小或数组的长度，有足够的位数来表示系统可能出现的最大对象的长度。
+#include<iostream>
+#include<vector>
+using namespace std;
+const string PATest="PATest";
+int main(){
+    string str;
+    cin>>str;
+    vector<int> charCount(6,0);
+    for(char c:str){
+        size_t position=PATest.find(c);
+        if(position!=string::npos)
+            charCount[position]++;
+    }
+    bool remaining=true;
+    while(remaining){
+        remaining=false;
+        for(size_t i=0;i<PATest.length();i++)
+            if(charCount[i]>0){
+                remaining=true;
+                cout<<PATest[i];
+                charCount[i]--;
+            }
+    }
+    return 0;
+}
