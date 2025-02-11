@@ -1,0 +1,25 @@
+getline(cin,input)，cctype里的isalpha，tolower。
+#include<iostream>
+#include<cctype>
+using namespace std;
+int main(){
+    int letterFrequency[26]={0};
+    string input;
+    getline(cin,input);
+    for(char c:input){
+        if(isalpha(c)){
+            c=tolower(c);
+            int tmp=c-'a';
+            letterFrequency[tmp]++;
+        }
+    }
+    int maxFrequency=0;
+    char minChar='a';
+    for(int i=0;i<26;i++)
+        if(letterFrequency[i]>maxFrequency){
+            maxFrequency=letterFrequency[i];
+            minChar='a'+i;
+        }
+    cout<<minChar<<" "<<maxFrequency;
+    return 0;
+}
