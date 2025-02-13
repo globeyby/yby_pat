@@ -1,0 +1,61 @@
+isdigit在cctypr里，stoi在string里，npos要制定作用域string。
+cin.ignore()，常用于忽略换行符和忽略输入缓冲区中指定数量的字符，cin.ignore(5)。
+#include<iostream>
+#include<vector>
+#include<cctype>
+using namespace std;
+const vector<string> lowDigit={"tret","jan","feb","mar","apr","may","jun","jly","aug","sep","oct","nov","dec"};
+const vector<string> highDigit={"","tam","hel","maa","huh","tou","kes","hei","elo","syy","lok","mer","jou"};
+string earthToMars(int earth){
+    int low=earth%13;
+    int high=earth/13;
+    if(high==0)
+        return lowDigit[low];
+    else if(low==0)
+        return highDigit[high];
+    else
+        return highDigit[high]+" "+lowDigit[low];
+}
+int marsToEarth(const string& mars){
+    int res=0;
+    if(mars.find(' ')==string::npos){
+        for(int i=0;i<13;i++){
+            if(lowDigit[i]==mars){
+                res=i;
+                break;
+            }
+            if(highDigit[i]==mars){
+                res=i*13;
+                break;
+            }
+        }
+    }else{
+        string highPart,lowPart;
+        int spacePosition=mars.find(' ');
+        highPart=mars.substr(0,spacePosition);
+        lowPart=mars.substr(spacePosition+1);
+        for(int i=0;i<13;i++){
+            if(highDigit[i]==highPart)
+                res+=i*13;
+            if(lowDigit[i]==lowPart)
+                res+=i;
+        }
+    }
+    return res;
+}
+int main(){
+    int n;
+    cin>>n;
+    cin.ignore();
+    for(int i=0;i<n;i++){
+        string input;
+        getline(cin,input);
+        if(isdigit(input[0])){
+            int tmp=stoi(input);
+            cout<<earthToMars(tmp)<<endl;
+        }else{
+            cout<<marsToEarth(input)<<endl;
+        }
+    }
+    return 0;
+}
