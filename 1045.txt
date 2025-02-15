@@ -1,0 +1,37 @@
+1e9是10的9次方+1，接近int所能表示最大值。
+利用动态规划的思想，逐步求出每一个输入左边的最大值和右边的最小值，最终再过一遍循环，得出结果。
+注意引入algorithm头文件以使用max，min，sort。
+遇到逆天格式判定无从解释，试着输出一个endl，结果成功，啼笑皆非。
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int> nums(n);
+    vector<int> leftMax(n);
+    vector<int> rightMin(n);
+    vector<int> res;
+    for(int i=0;i<n;i++)
+        cin>>nums[i];
+    leftMax[0]=0;
+    rightMin[n-1]=1e9+1;
+    for(int i=1;i<n;i++)
+        leftMax[i]=max(leftMax[i-1],nums[i-1]);
+    for(int i=n-2;i>=0;i--)
+        rightMin[i]=min(rightMin[i+1],nums[i+1]);
+    for(int i=0;i<n;i++)
+        if(nums[i]>leftMax[i]&&nums[i]<rightMin[i])
+            res.push_back(nums[i]);
+    int len=res.size();
+    cout<<len<<endl;
+    sort(res.begin(),res.end());
+    for(int i=0;i<len;i++){
+        cout<<res[i];
+        if(i!=len-1)
+            cout<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
