@@ -1,0 +1,26 @@
+const auto&让编译器自己判断迭代器的类型。
+迭代时用first指代唯一键值对的第一个元素，用second指代唯一键值对的第二个元素。
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,int> totalScore;
+    for(int i=0;i<n;i++){
+        int teamId,memberId,score;
+        char dash;
+        cin>>teamId>>dash>>memberId>>score;
+        totalScore[teamId]+=score;
+    }
+    int championId=0;
+    int championScore=0;
+    for(const auto& pair:totalScore){
+        if(pair.second>championScore){
+            championScore=pair.second;
+            championId=pair.first;
+        }
+    }
+    cout<<championId<<" "<<championScore;
+    return 0;
+}
