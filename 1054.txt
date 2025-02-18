@@ -1,0 +1,52 @@
+最抽象的报错是numbers在只有一个合法数据时，用单数，而其他情况用复数形式。
+用到了字符流与输入输出流格式化操纵符。
+#include<iostream>
+#include<sstream>
+#include<iomanip>
+using namespace std;
+bool isFloat(const string& str){
+    istringstream iss(str);
+    double num;
+    char tmp;
+    if(!(iss>>num)) return false;
+    if(iss>>tmp) return false;
+    return true;
+}
+bool tooManyDecimals(const string& str){
+    size_t dotPosition=str.find('.');
+    if(dotPosition==string::npos) return true;
+    return str.length()-dotPosition-1<=2;
+}
+bool isValid(const string& str){
+    if(!isFloat(str)) return false;
+    if(!tooManyDecimals(str)) return false;
+    double num;
+    istringstream iss(str);
+    iss>>num;
+    return num>=-1000&&num<=1000;
+}
+int main(){
+    int n;
+    cin>>n;
+    cin.ignore();
+    int count=0;
+    double sum=0.0;
+    for(int i=0;i<n;i++){
+        string input;
+        cin>>input;
+        if(isValid(input)){
+            double num;
+            istringstream iss(input);
+            iss>>num;
+            sum+=num;
+            count++;
+        }else
+            cout<<"ERROR: "<<input<<" is not a legal number"<<endl;
+    }
+    cout<<fixed<<setprecision(2);
+    if(count==0)
+        cout<<"The average of 0 numbers is Undefined"<<endl;
+    else if(count==1)
+        cout<<"The average of 1 number is "<<sum<<endl;
+    else cout<<"The average of "<<count<<" numbers is "<<sum/count<<endl;
+}
