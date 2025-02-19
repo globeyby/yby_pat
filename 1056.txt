@@ -1,0 +1,15 @@
+简单的逻辑思考。
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int sum=0;
+    for(int i=0;i<n;i++){
+        int digit;
+        cin>>digit;
+        sum+=digit*(n-1)*11;
+    }
+    cout<<sum<<endl;
+    return 0;
+}
