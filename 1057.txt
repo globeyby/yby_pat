@@ -1,0 +1,28 @@
+用好cctype库里的isalpha，是字母返回非零正整数，不是字母返回零，tolower，统一使用小写字母，方便计算字母序。
+#include<iostream>
+#include<cctype>
+using namespace std;
+int main(){
+    string str;
+    getline(cin,str);
+    int sum=0;
+    for(char c:str){
+        if(isalpha(c)){
+            char tmp=tolower(c);
+            sum+=tmp-'a'+1;
+        }
+    }
+    if(sum==0)
+        cout<<"0 0"<<endl;
+    else{
+        int zeroNum=0,oneNum=0;
+        while(sum){
+            if(sum%2==0)
+                zeroNum++;
+            else oneNum++;
+            sum/=2;
+        }
+        cout<<zeroNum<<" "<<oneNum<<endl;
+    }
+    return 0;
+}
