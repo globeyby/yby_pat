@@ -1,0 +1,99 @@
+#include<iostream>
+#include<set>
+#include<vector>
+#include<sstream>
+using namespace std;
+struct Question{
+    int score;
+    set<char> correctOptions;
+    int wrongCount=0;
+};
+set<char> getChoice(const string& answer){
+    set<char> res;
+    int count,tmp=answer.length();
+    istringstream iss(answer.substr(1,tmp-2));
+    iss>>count;
+    char op;
+    for(int i=0;i<count;i++){
+        iss>>op;
+        res.insert(op);
+    }
+    return res;
+}
+int handleSubmission(vector<Question>& paper,const string& line){
+    istringstream iss(line);
+    int res=0;
+    string tmpAns;
+    char ch;
+    //cout<<paper.size()<<"+++";
+    for(size_t i=0;i<paper.size();i++){
+        tmpAns="";
+        //iss>>tmpAns;
+        //getline(iss,tmpAns,' ');
+        //cout<<tmpAns<<"-";
+        int flag=0;
+        while(iss.get(ch)){
+            if(ch=='(')
+                flag++;
+            else if(ch==')')
+                flag--;
+            tmpAns+=ch;
+            if(flag==0)
+                break;
+        }
+        //cout<<tmpAns<<"===";
+        iss.get(ch);
+        set<char> transfer=getChoice(tmpAns);
+        if(transfer==paper[i].correctOptions)
+            res+=paper[i].score;
+        else
+            paper[i].wrongCount++;
+    }
+    return res;
+}
+void printWorst(vector<Question>& paper){
+    int maxCount=0;
+    for(const auto& question:paper){
+        if(question.wrongCount>maxCount)
+            maxCount=question.wrongCount;
+    }
+    if(maxCount==0)
+        cout<<"Too simple"<<endl;
+    else{
+        cout<<maxCount;
+        for(size_t i=0;i<paper.size();i++){
+            if(paper[i].wrongCount==maxCount)
+                cout<<" "<<i+1;
+        }
+        cout<<endl;
+    }
+}
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<Question> paper(m);
+    for(int i=0;i<m;i++){
+        int optionCount,correctCount;
+        cin>>paper[i].score>>optionCount>>correctCount;
+        //cout<<paper[i].score<<optionCount<<correctCount<<endl;
+        for(int j=0;j<correctCount;j++){
+            char option;
+            cin>>option;
+            //cout<<option;
+            paper[i].correctOptions.insert(option);
+        }
+    }
+    for(int i=0;i<n;i++){
+        string line;
+        cin.ignore();
+        getline(cin,line);
+        if(line[0]!='(')
+            line.insert(0,1,'(');
+        //cout<<line.back()<<endl;
+        //cout<<line<<endl;
+        int totalScore=handleSubmission(paper,line);
+        cout<<totalScore<<endl;
+    }
+    printWorst(paper);
+    return 0;
+}
