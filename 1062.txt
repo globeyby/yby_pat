@@ -1,0 +1,32 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int gcd(int a,int b){
+    return b==0?a:gcd(b,a%b);
+}
+bool compareFractions(int n1,int m1,int n2,int m2){
+    return n1*m2<n2*m1;
+}
+int main(){
+    int n1,m1,n2,m2,k;
+    char slash;
+    cin>>n1>>slash>>m1>>n2>>slash>>m2>>k;
+    if(compareFractions(n2,m2,n1,m1)){
+        swap(n1,n2);
+        swap(m1,m2);
+    }
+    vector<int> res;
+    for(int i=1;i<k;i++){
+        if(gcd(i,k)==1)
+            if(compareFractions(n1,m1,i,k)&&compareFractions(i,k,n2,m2))
+                res.push_back(i);
+    }
+    for(size_t i=0;i<res.size();i++){
+        if(i>0)
+            cout<<" ";
+        cout<<res[i]<<"/"<<k;
+    }
+    cout<<endl;
+    return 0;
+}
