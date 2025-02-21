@@ -1,0 +1,41 @@
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+#include<set>
+#include<iomanip>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    unordered_map<int,int> couples;
+    for(int i=0;i<n;i++){
+        int tmp1,tmp2;
+        cin>>tmp1>>tmp2;
+        couples[tmp1]=tmp2;
+        couples[tmp2]=tmp1;
+    }
+    int m;
+    cin>>m;
+    vector<int> guests(m);
+    for(int i=0;i<m;i++)
+        cin>>guests[i];
+    unordered_map<int,bool> present;
+    for(int g:guests)
+        present[g]=true;
+    set<int> single;
+    for(int g:guests){
+        auto tmp=couples.find(g);
+        if(tmp==couples.end()||!present[tmp->second])
+            single.insert(g);
+    }
+    cout<<single.size()<<endl;
+    bool flag=true;
+    for(int g:single){
+        if(!flag)
+            cout<<" ";
+        cout<<setw(5)<<setfill('0')<<g;
+        flag=false;
+    }
+    //cout<<endl;
+    return 0;
+}
