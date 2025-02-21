@@ -1,0 +1,47 @@
+#include<iostream>
+#include<unordered_map>
+#include<vector>
+using namespace std;
+bool isPrime(int n){
+    if(n<=1) return false;
+    if(n<=3) return true;
+    if(n%2==0||n%3==0) return false;
+    int i=5;
+    while(i*i<=n){
+        if(n%i==0||n%(i+2)==0)
+            return false;
+        i+=6;
+    }
+    return true;
+}
+int main(){
+    int n,k;
+    cin>>n;
+    unordered_map<string,int> rankings;
+    unordered_map<string,bool> checked;
+    for(int i=0;i<n;i++){
+        string tmp;
+        cin>>tmp;
+        rankings[tmp]=i+1;
+    }
+    cin>>k;
+    for(int i=0;i<k;i++){
+        string tmp;
+        cin>>tmp;
+        if(rankings.find(tmp)==rankings.end())
+            cout<<tmp<<": Are you kidding?"<<endl;
+        else if(checked[tmp])
+            cout<<tmp<<": Checked"<<endl;
+        else{
+            checked[tmp]=true;
+            int rank=rankings[tmp];
+            if(rank==1)
+                cout<<tmp<<": Mystery Award"<<endl;
+            else if(isPrime(rank))
+                cout<<tmp<<": Minion"<<endl;
+            else
+                cout<<tmp<<": Chocolate"<<endl;
+        }
+    }
+    return 0;
+}
