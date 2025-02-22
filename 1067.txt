@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+int main(){
+    string password;
+    int n;
+    cin>>password>>n;
+    cin.ignore();
+    int attemptCount=0;
+    string inputPassword;
+    while(1){
+        getline(cin,inputPassword);
+        if(inputPassword=="#")
+            break;
+        attemptCount++;
+        if(inputPassword==password){
+            if(attemptCount<=n){
+                cout<<"Welcome in"<<endl;
+                break;
+            }
+        }else{
+            cout<<"Wrong password: "<<inputPassword<<endl;
+            if(attemptCount==n){
+                cout<<"Account locked";
+                break;
+            }
+        }
+    }
+    return 0;
+}
