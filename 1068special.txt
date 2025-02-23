@@ -1,0 +1,49 @@
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+using namespace std;
+bool isUnique(const unordered_map<int,int>& colorCount,int color){
+    return colorCount.at(color)==1;
+}
+bool checkColorDifference(const vector<vector<int>>& image,int x,int y,int tol,int m,int n){
+    int currentColor=image[y][x];
+    int dx[]={-1,-1,-1,0,0,1,1,1};
+    int dy[]={-1,0,1,-1,1,-1,0,1};
+    for(int i=0;i<8;i++){
+        int nextX=x+dx[i];
+        int nextY=y+dy[i];
+        if(nextX>=0&&nextX<m&&nextY>=0&&nextY<n)
+            if(abs(currentColor-image[nextY][nextX])<=tol)
+                return false;
+    }
+    return true;
+}
+int main(){
+    int m,n,tol;
+    cin>>m>>n>>tol;
+    vector<vector<int>> image(n,vector<int>(m));
+    unordered_map<int,int> colorCount;
+    for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++){
+            cin>>image[i][j];
+            colorCount[image[i][j]]++;
+        }
+    int uniqueCount=0,uX,uY,uColor;
+    for(int i=0;i<n;i++)
+        for(int j=0;j<m;j++){
+            int tmp=image[i][j];
+            if(isUnique(colorCount,tmp)&&checkColorDifference(image,j,i,tol,m,n)){
+                uniqueCount++;
+                uX=j+1;
+                uY=i+1;
+                uColor=tmp;
+            }
+        }
+    if(uniqueCount==0)
+        cout<<"Not Exist"<<endl;
+    else if(uniqueCount==1)
+        cout<<"("<<uX<<", "<<uY<<"): "<<uColor<<endl;
+    else
+        cout<<"Not Unique"<<endl;
+    return 0;
+}
