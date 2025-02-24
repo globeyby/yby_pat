@@ -1,0 +1,40 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+string reverseString(const string& str){
+    string tmp=str;
+    reverse(tmp.begin(),tmp.end());
+    return tmp;
+}
+string universeAdd(const string& table,const string& num1,const string& num2){
+    string tmpTable=reverseString(table);
+    string tmpNum1=reverseString(num1);
+    string tmpNum2=reverseString(num2);
+    string res;
+    int carry=0;
+    size_t i=0;
+    while(i<tmpNum1.length()||i<tmpNum2.length()||carry){
+        int digit1=(i<tmpNum1.length())?(tmpNum1[i]-'0'):0;
+        int digit2=(i<tmpNum2.length())?(tmpNum2[i]-'0'):0;
+        int digitBase=(i<tmpTable.length())?(tmpTable[i]-'0'):10;
+        if(digitBase==0)
+            digitBase=10;
+        int sum=digit1+digit2+carry;
+        carry=sum/digitBase;
+        res.push_back((sum%digitBase)+'0');
+        i++;
+    }
+    reverse(res.begin(),res.end());
+    size_t start=0;
+    while(start<res.length()-1&&res[start]=='0')
+        start++;
+    return res.substr(start);
+}
+int main(){
+    string table,num1,num2;
+    cin>>table>>num1>>num2;
+    string sum=universeAdd(table,num1,num2);
+    cout<<sum<<endl;
+    return 0;
+}
