@@ -1,0 +1,40 @@
+#include<iostream>
+#include<unordered_set>
+#include<vector>
+using namespace std;
+int findNextUnluckyWinner(const vector<string>& nicknames,unordered_set<string>& winners,int start,int m) {
+    for(int i=start;i<=m;i++)
+        if(winners.find(nicknames[i-1])==winners.end())
+            return i;
+    return -1;
+}
+int main() {
+    int m,n,s;
+    cin>>m>>n>>s;
+    unordered_set<string> winners;
+    vector<string> nicknames(m);
+    for(int i=0;i<m;i++)
+        cin>>nicknames[i];
+    bool hasWinner=false;
+    int current=s-1;
+    while(current<m){
+        if(winners.find(nicknames[current])==winners.end()){
+            cout<<nicknames[current]<<endl;
+            winners.insert(nicknames[current]);
+            hasWinner=true;
+            current+=n;
+        }else{
+            int nextWinnerIndex=findNextUnluckyWinner(nicknames,winners,current+2,m);
+            if(nextWinnerIndex!=-1){
+                cout<<nicknames[nextWinnerIndex-1]<<endl;
+                winners.insert(nicknames[nextWinnerIndex-1]);
+                hasWinner=true;
+                current=nextWinnerIndex-1+n;
+            }else
+                break;
+        }
+    }
+    if(!hasWinner)
+        cout<<"Keep going..."<<endl;
+    return 0;
+}
