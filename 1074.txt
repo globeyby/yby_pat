@@ -1,3 +1,4 @@
+string类型的push_back只能尾插一个字符，想追加字符串需要用+=或append。
 #include<iostream>
 #include<vector>
 #include<algorithm>
