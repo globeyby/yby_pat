@@ -1,0 +1,42 @@
+#include<iostream>
+#include<unordered_set>
+#include<vector>
+using namespace std;
+int main(){
+    int n,m;
+    cin>>n>>m;
+    unordered_set<string> kinds;
+    for(int i=0;i<m;i++){
+        string tmp;
+        cin>>tmp;
+        kinds.insert(tmp);
+    }
+    int problemStudent=0;
+    int seizedNum=0;
+    for(int i=0;i<n;i++){
+        string name;
+        int k;
+        cin>>name>>k;
+        vector<string> seizedItem;
+        for(int j=0;j<k;j++){
+            string tmp;
+            cin>>tmp;
+            if(kinds.find(tmp)!=kinds.end())
+                seizedItem.push_back(tmp);
+        }
+        if(!seizedItem.empty()){
+            problemStudent++;
+            int len=seizedItem.size();
+            seizedNum+=len;
+            cout<<name<<": ";
+            for(int j=0;j<len;j++){
+                if(j>0)
+                    cout<<" ";
+                cout<<seizedItem[j];
+            }
+            cout<<endl;
+        }
+    }
+    cout<<problemStudent<<" "<<seizedNum<<endl;
+    return 0;
+}
