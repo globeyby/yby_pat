@@ -1,0 +1,18 @@
+static_cast<int>静态数据类型转换。
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<int> nums(n);
+    for(int i=0;i<n;i++)
+        cin>>nums[i];
+    sort(nums.begin(),nums.end());
+    double sum=nums[0];
+    for(int i=1;i<n;i++)
+        sum=(sum+nums[i])/2;
+    cout<<static_cast<int>(sum)<<endl;
+    return 0;
+}
