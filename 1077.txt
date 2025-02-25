@@ -1,0 +1,30 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> tmpSum(n);
+    for(int i=0;i<n;i++){
+        int teacherScore;
+        cin>>teacherScore;
+        vector<int> OtherScore;
+        for(int j=0;j<n-1;j++){
+            int tmp;
+            cin>>tmp;
+            if(tmp>=0&&tmp<=m)
+                OtherScore.push_back(tmp);
+        }
+        sort(OtherScore.begin(),OtherScore.end());
+        double OtherSum=0.0;
+        int len=OtherScore.size()-1;
+        for(int k=1;k<len;k++)
+            OtherSum+=OtherScore[k];
+        int average=static_cast<int>(OtherSum/(len-1));
+        tmpSum[i]=(teacherScore+average+1)/2;
+    }
+    for(int i=0;i<n;i++)
+        cout<<tmpSum[i]<<endl;
+    return 0;
+}
